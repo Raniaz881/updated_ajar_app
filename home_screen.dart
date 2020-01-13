@@ -1,12 +1,11 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/apartment.dart';
+import 'package:flutter_app/Contract/contract_template_screen.dart';
 import 'package:flutter_app/carousels/apartment_carousel.dart';
 import 'package:flutter_app/carousels/office_carousel.dart';
-
 import 'Payment/MyCardPage.dart';
-import 'Payment/card_front.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -24,20 +23,69 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFFEBEDEF),
         elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              iconSize: 26,
+              color: Color(0xFF354241),
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
       drawer: Drawer(
+
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(12),
                 gradient: LinearGradient(colors: <Color>[
                   Colors.teal,
                   Colors.white,
                 ],
                 ),
               ),
+              child: Container(
+                child:Column(
+                  children: <Widget>[
+                    Material(
+                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      elevation: 25,
+                      child: Padding(padding: EdgeInsets.all(8.0),
+                      child: Image.asset('images/assets/pp.jpg',width: 80,height:80 ,),
+                    ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Rania Jamal',
+                        style: TextStyle(
+                          color:  Colors.white,
+                          fontSize: 20,
+                          
+                        ),
+
+                      ),
+                    ),
+                  ],
+                  
+                ),
+              ),
             ),
+            CustomListTile(Icons.person,'Profile',()=>{}),
+
+            CustomListTile(Icons.home,'My Properties',()=>{}),
+            CustomListTile(Icons.person_add,'Requests',()=>{}),
+            CustomListTile(Icons.library_books,'Contracts',()=>{Navigator.push(context, MaterialPageRoute(builder: (context)=> TemplatePage()))}),
+            SizedBox(height: 70),
+
+            CustomListTile(Icons.info,'About Us',()=>{}),
+            CustomListTile(Icons.receipt,'Terms & Conditions',()=>{}),
+            CustomListTile(Icons.lock,'Log Out',()=>{}),
+
           ],
 
         ),
@@ -143,10 +191,47 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class CustomListTile extends  StatelessWidget{
+  IconData icon;
+  String text;
+  Function onTap;
+
+  CustomListTile(this.icon, this.text, this.onTap);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black26))
+        ),
+        child: InkWell(
+          splashColor: Color(0xFF354241),
+          onTap: onTap,
+          child: Container(
+            height: 40,
+            child: Row(
+              children: <Widget>[
+                Icon(
+                 (icon),
+                  color: Color(0xFF354241),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    text,
+                    style:TextStyle(
+                      fontSize: 16,
+                      color:Color(0xFF354241),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+        ),
+      ),
+    );
   }
 }
-
